@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Custom Flappy Bird</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="game-panel" aria-label="Custom Flappy Bird game">
+        <canvas id="game" width="432" height="640"></canvas>
+        <div class="hud">
+          <div>
+            <span class="label">Score</span>
+            <strong id="score">0</strong>
+          </div>
+          <div>
+            <span class="label">Best</span>
+            <strong id="best">0</strong>
+          </div>
+        </div>
+        <div id="homeScreen" class="screen home-screen">
+          <div class="home-scene" aria-hidden="true">
+            <span class="home-cloud cloud-one"></span>
+            <span class="home-cloud cloud-two"></span>
+            <span class="home-pipe pipe-left"></span>
+            <span class="home-pipe pipe-right"></span>
+            <span class="home-bird"></span>
+          </div>
+          <div class="home-copy">
+            <p id="homeEyebrow">Build your own flap</p>
+            <h1 id="homeTitle">Flappy Remix</h1>
+            <span id="homeScore">Best 0</span>
+          </div>
+          <div class="menu-actions">
+            <button id="playMenuBtn" type="button" data-icon="▶">Play</button>
+            <button id="settingsMenuBtn" type="button" data-icon="⚙">Customize</button>
+          </div>
+        </div>
+        <div id="message" class="message" hidden>
+          <h1>Game Over</h1>
+          <p>Press space, click, or tap to play again.</p>
+          <button id="startBtn" type="button" data-icon="↻">Start</button>
+          <button id="messageHomeBtn" type="button" data-icon="⌂">Home</button>
+        </div>
+      </section>
+
+      <section id="settingsPanel" class="controls settings-screen" aria-label="Game customization controls" hidden>
+        <div class="settings-bar">
+          <div>
+            <span id="settingsEyebrow">Flappy Remix</span>
+            <h2 id="settingsTitle">Customize</h2>
+          </div>
+          <button id="homeBtn" type="button" data-icon="⌂">Home</button>
+        </div>
+        <h3>Menus</h3>
+        <label class="text-control">
+          <span>Home Small Text</span>
+          <input id="homeEyebrowText" type="text" value="Build your own flap" maxlength="32">
+        </label>
+        <label class="text-control">
+          <span>Home Title</span>
+          <input id="homeTitleText" type="text" value="Flappy Remix" maxlength="28">
+        </label>
+        <label class="text-control">
+          <span>Play Button</span>
+          <input id="playButtonText" type="text" value="Play" maxlength="18">
+        </label>
+        <label class="text-control">
+          <span>Customize Button</span>
+          <input id="customizeButtonText" type="text" value="Customize" maxlength="18">
+        </label>
+        <label class="text-control">
+          <span>Game Over Title</span>
+          <input id="gameOverTitleText" type="text" value="Game Over" maxlength="28">
+        </label>
+        <label class="text-control">
+          <span>Game Over Message</span>
+          <input id="gameOverMessageText" type="text" value="Press space, click, or tap to play again." maxlength="70">
+        </label>
+        <label class="text-control">
+          <span>Restart Button</span>
+          <input id="restartButtonText" type="text" value="Restart" maxlength="18">
+        </label>
+        <label class="text-control">
+          <span>Home Button</span>
+          <input id="homeButtonText" type="text" value="Home" maxlength="18">
+        </label>
+        <label class="text-control">
+          <span>Settings Small Text</span>
+          <input id="settingsEyebrowText" type="text" value="Flappy Remix" maxlength="28">
+        </label>
+        <label class="text-control">
+          <span>Settings Title</span>
+          <input id="settingsTitleText" type="text" value="Customize" maxlength="28">
+        </label>
+        <div class="color-grid">
+          <label class="color-control">
+            <span>Menu Text</span>
+            <input id="menuTextColor" type="color" value="#f8fbff">
+          </label>
+          <label class="color-control">
+            <span>Button Color</span>
+            <input id="buttonColor" type="color" value="#ffd166">
+          </label>
+          <label class="color-control">
+            <span>Home Top</span>
+            <input id="homeTopColor" type="color" value="#24b2ef">
+          </label>
+          <label class="color-control">
+            <span>Home Bottom</span>
+            <input id="homeBottomColor" type="color" value="#51d59f">
+          </label>
+          <label class="color-control">
+            <span>Panel Color</span>
+            <input id="panelColor" type="color" value="#17202c">
+          </label>
+          <label class="color-control">
+            <span>Overlay Color</span>
+            <input id="overlayColor" type="color" value="#0d141d">
+          </label>
+        </div>
+        <h3>Button Icons</h3>
+        <div class="icon-grid">
+          <label class="file-control">
+            <span>Play Icon</span>
+            <input id="playIconUpload" type="file" accept="image/gif,image/*">
+          </label>
+          <label class="file-control">
+            <span>Customize Icon</span>
+            <input id="customizeIconUpload" type="file" accept="image/gif,image/*">
+          </label>
+          <label class="file-control">
+            <span>Restart Icon</span>
+            <input id="restartIconUpload" type="file" accept="image/gif,image/*">
+          </label>
+          <label class="file-control">
+            <span>Home Icon</span>
+            <input id="homeIconUpload" type="file" accept="image/gif,image/*">
+          </label>
+          <label class="file-control">
+            <span>Reset Icon</span>
+            <input id="resetIconUpload" type="file" accept="image/gif,image/*">
+          </label>
+          <label class="file-control">
+            <span>Pause Icon</span>
+            <input id="pauseIconUpload" type="file" accept="image/gif,image/*">
+          </label>
+          <label class="file-control">
+            <span>Sound Icon</span>
+            <input id="soundIconUpload" type="file" accept="image/gif,image/*">
+          </label>
+        </div>
+        <h3>Saves</h3>
+        <label class="file-control">
+          <span>Load Custom Save</span>
+          <input id="saveUpload" type="file" accept="application/json,.json">
+        </label>
+        <div class="button-row">
+          <button id="downloadSaveBtn" type="button" data-icon="↓">Download Save</button>
+          <button id="clearSaveBtn" type="button" data-icon="x">Clear Save Data</button>
+        </div>
+        <h3>Images</h3>
+        <label class="file-control">
+          <span>Background</span>
+          <input id="backgroundUpload" type="file" accept="image/gif,image/*">
+        </label>
+        <label class="file-control">
+          <span>Ground</span>
+          <input id="groundUpload" type="file" accept="image/gif,image/*">
+        </label>
+        <label class="file-control">
+          <span>Pipes</span>
+          <input id="pipeUpload" type="file" accept="image/gif,image/*">
+        </label>
+        <label class="file-control">
+          <span>Bird</span>
+          <input id="birdUpload" type="file" accept="image/gif,image/*">
+        </label>
+        <label class="file-control">
+          <span>Death Animation</span>
+          <input id="deathUpload" type="file" accept="image/gif,image/*">
+        </label>
+
+        <h3>Sounds</h3>
+        <label class="file-control">
+          <span>Jump Sound</span>
+          <input id="flapSoundUpload" type="file" accept="audio/*">
+        </label>
+        <label class="file-control">
+          <span>Score Sound</span>
+          <input id="scoreSoundUpload" type="file" accept="audio/*">
+        </label>
+        <label class="file-control">
+          <span>Death Sound</span>
+          <input id="crashSoundUpload" type="file" accept="audio/*">
+        </label>
+        <label class="file-control">
+          <span>Background Music</span>
+          <input id="musicUpload" type="file" accept="audio/*">
+        </label>
+
+        <h3>Feel</h3>
+        <label class="range-control">
+          <span>Game Speed <strong id="speedValue">1.9</strong></span>
+          <input id="speedRange" type="range" min="0.8" max="4" step="0.1" value="1.9">
+        </label>
+        <label class="range-control">
+          <span>Jump Power <strong id="jumpValue">8.6</strong></span>
+          <input id="jumpRange" type="range" min="5" max="13" step="0.1" value="8.6">
+        </label>
+        <label class="range-control">
+          <span>Bird Size <strong id="birdScaleValue">1.0x</strong></span>
+          <input id="birdScaleRange" type="range" min="0.5" max="2.5" step="0.1" value="1">
+        </label>
+        <label class="range-control">
+          <span>Pipe Size <strong id="pipeScaleValue">1.0x</strong></span>
+          <input id="pipeScaleRange" type="range" min="0.6" max="2" step="0.1" value="1">
+        </label>
+        <label class="range-control">
+          <span>Ground Size <strong id="groundScaleValue">1.0x</strong></span>
+          <input id="groundScaleRange" type="range" min="0.5" max="1.8" step="0.1" value="1">
+        </label>
+        <label class="range-control">
+          <span>Death Animation Size <strong id="deathScaleValue">1.0x</strong></span>
+          <input id="deathScaleRange" type="range" min="0.5" max="3" step="0.1" value="1">
+        </label>
+        <label class="range-control">
+          <span>Background Zoom <strong id="backgroundScaleValue">1.0x</strong></span>
+          <input id="backgroundScaleRange" type="range" min="0.6" max="2" step="0.1" value="1">
+        </label>
+        <label class="toggle-control">
+          <input id="homeAfterDeathToggle" type="checkbox">
+          <span>Open home screen after death</span>
+        </label>
+        <div class="button-row">
+          <button id="resetAssetsBtn" type="button" data-icon="↺">Reset Custom</button>
+          <button id="pauseBtn" type="button" data-icon="Ⅱ">Pause</button>
+          <button id="soundBtn" type="button" data-icon="♪">Sound On</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
